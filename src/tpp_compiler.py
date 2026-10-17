@@ -40,6 +40,16 @@ class ArgumentParser(argparse.ArgumentParser):
         super().error(message)
 
 
+def print_tokens(tokens):
+    """Imprime a lista de tokens reconhecidos pelo analisador léxico.
+
+    Não utiliza a saída padrão de depuração da ferramenta de geração
+    de analisadores léxicos (ex.: PLY); imprime apenas o tipo de cada token.
+    """
+    for token in tokens:
+        print(token.type)
+
+
 def main():
     cli = ArgumentParser(description="Compilador TPP [tppc]")
     cli.add_argument("fonte", help="arquivo-fonte .tpp")
@@ -78,9 +88,7 @@ def main():
         source_file = data.read()
         # lexer.input(source_file)
 
-        for token in lexer.get_tokens(source_file):
-            #print(token.type, token.value)
-            print(token.type)
+        print_tokens(lexer.get_tokens(source_file))
     
     
 
